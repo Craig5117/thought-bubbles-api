@@ -14,6 +14,8 @@ const userController = {
     // get one user by id
     getUserById({ params }, res) {
         User.findOne({ _id: params.id })
+        // lean combined with populate appears to give you better control
+        // to modify the returned results
         .lean()
         .populate( 'friends', '_id username' )
         .select('-__v')
