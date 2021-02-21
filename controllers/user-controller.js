@@ -18,6 +18,8 @@ const userController = {
         // to modify the returned results
         .lean()
         .populate( 'friends', '_id username' )
+        // the commented out code below would return all of the friends User data
+        // .populate({ path: friends })
         .select('-__v')
         .then(dbUserData => {
             if (!dbUserData) {
