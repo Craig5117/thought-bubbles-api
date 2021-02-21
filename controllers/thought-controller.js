@@ -47,8 +47,18 @@ const thoughtController = {
             .catch(err => res.json(err));
     },
     // update thought by id
-    updateThought () {
-
+    updateThought (req, res) {
+        // user may update thoughtText only
+        // updating username would cause problems
+        Thought.findOneAndUpdate({ _id: req.params.id }, {thoughtText: req.body.thoughtText}, { new: true, runValidators: true })
+        .then(dbThoughtData => {
+            if (!dbThoughtData) {
+                res.status(404).json({ message: 'No thought found with this id.' });
+                return;
+            }
+            res.json(dbThoughtData);
+        })
+        .catch(err => res.status(400).json(err));
     },
     // delete thought by id
     deleteThought ({ params }, res) {
