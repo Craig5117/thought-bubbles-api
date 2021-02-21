@@ -12,20 +12,22 @@ const {
 
 router
     .route('/')
-    .get(getAllThoughts);
+    .get(getAllThoughts)
+    .post(addThought);
 
 // this could probably be combined with the /:id route
 // but I thought it would be best to keep them separated
 // for better readability since the id passed in here is a userId
 router
-    .route('/:userId')
-    .post(addThought);
+    .route('/:id/:userId')
+    .delete(deleteThought);
+    
 
 router
     .route('/:id')
     .get(getThoughtById)
     .put(updateThought)
-    .delete(deleteThought)
+    
 
 
 
