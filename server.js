@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const app = express();
+// app only runs on local at this stage, but the production env is here and ready
 const PORT = process.env.PORT || 3001;
 
 // express middleware for parsing body
@@ -10,6 +11,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(require('./routes'));
 
+// again, the app is only running on local at this stage, 
+// but a production env is configured here to use with Atlas as well
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/thought-bubbles', {
     // enables findOneAndUpdate and findOneAndDelete
     useFindAndModify: false,
