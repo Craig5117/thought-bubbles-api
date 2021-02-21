@@ -41,13 +41,17 @@ const userController = {
     },
     // update a user
     updateUser({ params, body }, res) {
-        User.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
+        User.findOneAndUpdate({ _id: params.id }, body, { runValidators: true })
             .then(dbUserData => {
                 if (!dbUserData) {
                     res.status(404).json({ message: 'No user found with this id.' });
                     return;
                 }
-                res.json(dbUserData);
+                // this updates the username in Thoughts if the user changed their username
+                return Thought.updateMany({ username: dbUserData.username }, {username: body.username}, { new: true });
+            })
+            .then(data => {
+                res.json(data)
             })
             .catch(err => res.status(400).json(err));
     },
@@ -61,7 +65,7 @@ const userController = {
                 }
                 return Thought.deleteMany({ username: dbUserData.username });                
             })
-            .then(data => {
+            .then(() => {
                 res.json({ message: 'User and all associated thoughts have been removed.' });
             })
             .catch(err => res.status(400).json(err));
