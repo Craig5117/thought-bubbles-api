@@ -46,6 +46,8 @@ const userController = {
                     return;
                 }
                 // this updates the username in Thoughts if the user changed their username
+                // there does not appear to be an easy way to do this for reactions
+                // as long as reactions are a subdocument only
                 return Thought.updateMany({ username: dbUserData.username }, body, { runValidators:true });
             })
             .then(() => {
