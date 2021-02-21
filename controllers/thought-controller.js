@@ -53,10 +53,10 @@ const thoughtController = {
     // delete thought by id
     deleteThought ({ params }, res) {
         Thought.findOneAndDelete({ _id: params.id })
-        .then(({ _id }) => {
+        .then(dbThoughtData => {
             return User.findOneAndUpdate(
-                { _id: params.userId },
-                { $pull: { thoughts: _id } },
+                { username: dbThoughtData.username },
+                { $pull: { thoughts: params.id } },
                 { new: true }
             );
         })
