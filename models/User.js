@@ -14,12 +14,12 @@ const UserSchema = new Schema({
         trim: true,
         match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
     },
-    // thoughts: [
-    //     {
-    //         type: Schema.Types.ObjectId,
-    //         ref: 'Thought'
-    //     }
-    // ],
+    thoughts: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Thought'
+        }
+    ],
     friends: [
         {
             type: Schema.Types.ObjectId,

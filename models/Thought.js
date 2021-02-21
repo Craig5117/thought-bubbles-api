@@ -40,7 +40,6 @@ const ThoughtSchema = new Schema(
             minLength: 1,
             maxLength: 280,
             trim: true
-
         },
         createdAt: {
             type: Date,
@@ -52,7 +51,6 @@ const ThoughtSchema = new Schema(
             required: true
         },
         reactions: [ReactionSchema]
-
     },
     {
         toJSON: {

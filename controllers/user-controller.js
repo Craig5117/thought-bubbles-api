@@ -15,11 +15,11 @@ const userController = {
     getUserById({ params }, res) {
         User.findOne({ _id: params.id })
         // lean combined with populate appears to give you better control
-        // to modify the returned results
-        .lean()
-        .populate( 'friends', '_id username' )
+        // to modify the returned results but it also disables my virtuals
+        .populate({ path: 'friends', select: '-__v'})
         // the commented out code below would return all of the friends User data
         // .populate({ path: friends })
+        .populate({ path: 'thoughts', select: '-__v -username'})
         .select('-__v')
         .then(dbUserData => {
             if (!dbUserData) {
