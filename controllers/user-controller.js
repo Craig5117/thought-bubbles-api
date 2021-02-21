@@ -48,10 +48,10 @@ const userController = {
                     return;
                 }
                 // this updates the username in Thoughts if the user changed their username
-                return Thought.updateMany({ username: dbUserData.username }, {username: body.username}, { new: true });
+                return Thought.updateMany({ username: dbUserData.username }, body, { runValidators:true });
             })
-            .then(data => {
-                res.json(data)
+            .then(() => {
+                res.json({ message: 'User and any associated Thoughts have been updated.'})
             })
             .catch(err => res.status(400).json(err));
     },
